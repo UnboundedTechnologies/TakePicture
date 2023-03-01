@@ -1,0 +1,37 @@
+<div *ngIf="member" class="flex justify-center text-center items-center flex-col">
+  <h2 class="text-2xl font-bold mb-4 text-white dark:text-black text-center">
+    Here's the final result:
+  </h2>
+  <div class="container">
+    <div class="card relative w-full" #card (click)="flipCard()">
+      <figure class="front w-full">
+        <img src="../../assets/img/gym_card_front.jpg" alt="front">
+        <div class="caption">
+          <h2>Card&nbsp;&nbsp;n° <span class="font-bold">{{member.id}}</span></h2>
+          <p>Date Of Subscription: <span class="font-bold">{{member.dateOfSubscription | date:"LL/dd/yyyy" }}</span></p>
+        </div>
+      </figure>
+
+      <figure class="back absolute top-0 left-0 w-full">
+        <img src="../../assets/img/gym_card_back.jpg" alt="back">
+        <div class="caption flex flex-col justify-between">
+          <div class="relative w-10 h-10 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48">
+            <img [src]="finalUrl+'small_'+member.imageName" [alt]="member.name + member.firstName" class="absolute top-0 right-0 w-full h-full object-cover opacity-100 border border-white border-4">
+          </div>
+
+          <div class="text-right sm:ml-4">
+            <dl>
+              <dt>Name</dt>
+              <dd>{{member.name}}</dd>
+              <dt>Firstname</dt>
+              <dd>{{member.firstName}}</dd>
+              <dt>Birthday</dt>
+              <dd>{{member.dob | date:"LL/dd/yyyy" }}</dd>
+            </dl>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</div>
+

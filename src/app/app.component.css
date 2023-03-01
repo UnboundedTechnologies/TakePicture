@@ -1,0 +1,49 @@
+.actionBtn{
+  margin-top: 5px;
+  margin-bottom: 2px;
+  font-size: 1.2em;
+}
+
+.snapshot{
+  text-align: center;
+}
+
+.snap .img{
+  max-width: 800px;
+  max-height: 800px;
+}
+
+.spinner{
+  width: 50px;
+  vertical-align: middle;
+}
+
+.message{
+  text-align: center;
+  color: green;
+  font-size: x-large;
+}
+
+.messageError{
+  text-align: center;
+  color: red;
+  font-size: x-large;
+}
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+svg {
+  animation: float 10s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10%);
+  }
+}

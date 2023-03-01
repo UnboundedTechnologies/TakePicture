@@ -25,9 +25,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/flatpickr/dist/flatpickr.min.css",
+              "node_modules/flatpickr/dist/themes/dark.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/flatpickr/dist/flatpickr.min.js",
+              "node_modules/flowbite/dist/flowbite.js",
+              "node_modules/flowbite/dist/datepicker.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "cc027402-54e3-4455-a1e4-408bc4868035"
   }
 }

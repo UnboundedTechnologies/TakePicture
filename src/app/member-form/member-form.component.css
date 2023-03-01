@@ -1,0 +1,9 @@
+@import "~flatpickr/dist/themes/dark.css";
+
+.flatpickr-no-border {
+  border: none !important;
+}
+
+ng2-flatpickr{
+  border:none;
+}

@@ -1,0 +1,16 @@
+<div class="flex items-center justify-center">
+  <button type="button" class="relative inline-flex items-center p-3 text-sm font-medium text-center items-center text-white bg-blue-700 rounded-lg focus:decoration-0 dark:bg-blue-600">
+    <div class="flex items-center">
+      <i class="far fa-solid fa-sun mr-2"></i>
+      <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" class="sr-only peer" [checked]="isDarkMode" (change)="toggleDarkMode()" />
+        <div class="w-11 h-6 rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"
+             [ngClass]="{'bg-gray-200 dark:bg-gray-700': !isDarkMode, 'bg-purple-600': isDarkMode }">
+        </div>
+        <i class="far fa-solid fa-moon ml-2"></i>
+      </label>
+    </div>
+  </button>
+</div>
+
+

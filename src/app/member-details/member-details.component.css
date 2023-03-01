@@ -1,0 +1,256 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,800);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,700);
+
+.card{
+  transition: 0.6s;
+  transform-style: preserve-3d;
+}
+
+figure{
+  background: #2e5d5a;
+  color: #fff;
+  backface-visibility: hidden;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+}
+
+figure.front{
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+figure.back,
+.card.flipped{
+  transform: rotateY(180deg);
+}
+
+figure img{
+  position: relative;
+  display: block;
+  min-height: 100%;
+  opacity: 0.7;
+}
+
+figure .caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  padding: 2em;
+  backface-visibility: hidden;
+}
+
+.front .caption{
+  font-size: 1.25em;
+}
+
+.front .caption:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(72,76,97,0) 0%, rgba(72,76,97,0.8) 75%);
+  content: '';
+  opacity: 0;
+  transform: translate3d(0,50%,0);
+  transition: opacity 0.35s, transform 0.35s;
+}
+
+.front:hover .caption:before{
+  opacity: 1;
+  transform: translate3d(0,0,0);
+}
+
+.front h2{
+  word-spacing: -0.15em;
+  font-weight: 300;
+  font-size: 1.6em;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  color: white;
+  transition: transform 0.35s, color 0.35s;
+  transform: translate3d(0,-50%,0);
+}
+
+.front h2 span {
+  font-weight: bold;
+}
+
+/* White bar right beneath the card n°
+.front h2:after{
+  position: absolute;
+  bottom: -10px;
+  left: 70px;
+  right: 70px;
+  height: 2px;
+  background: #fff;
+  content: '';
+  transition: transform 0.35s;
+  transform: translate3d(-130%,0,0);
+}*/
+
+.front:hover h2 {
+  color: #fff;
+  -webkit-transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
+  transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
+}
+
+.front:hover h2:after {
+  transform: translate3d(0,0,0);
+}
+
+.front p {
+  letter-spacing: 1px;
+  font-size: 68.5%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 2em;
+  width: 100%;
+  opacity: 0;
+  transform: translate3d(0,10px,0);
+  transition: opacity 0.35s, transform 0.35s;
+}
+
+@media only screen and (max-width: 768px) {
+  .front h2 {
+    font-size: 1.2em;
+  }
+
+  .front p {
+    font-size: 60%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .front h2 {
+    font-size: 1em;
+  }
+
+  .front p {
+    font-size: 50%;
+  }
+}
+
+.back .caption:before,
+.back .caption:after {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+  content: '';
+  opacity: 0;
+  transition: opacity 0.45s, transform 0.45s;
+  transition-delay: 1s;
+}
+
+.back .caption:before {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  transform: scale(0, 1);
+}
+
+.back .caption:after {
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  transform: scale(1, 0);
+}
+
+.card.flipped .back .caption:before,
+.card.flipped .back .caption:after {
+  opacity: 0.9;
+  transform: scale(1);
+}
+
+.back dl {
+  font-family: 'Lato', Arial, sans-serif;
+  font-weight: 300;
+  bottom: 40px;
+  left: 40px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.35s, transform 0.35s;
+  transition-delay: 0.85s;
+  transform: translate3d(-40px, 0, 0);
+}
+
+.card.flipped .back dl {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+dl dt {
+  float: left;
+  width: 100px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  font-weight: 700;
+}
+
+dl dd {
+  margin-left: 120px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+  dl dd {
+    font-size: 14px;
+  }
+
+  .back dl {
+    font-size: 14px;
+    bottom: 40px;
+    left: 40px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  dl dd {
+    font-size: 10px;
+  }
+
+  .back dl {
+    font-size: 10px;
+    bottom: 35px;
+    left: 2.5px;
+  }
+}
+
+dl dd:before,
+dl dd:after {
+  display: table;
+  content: " ";
+}
+
+dl dd:after {
+  clear: both;
+}
+
+.front:hover p {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+figure a {
+  z-index: 1000;
+  text-indent: 200%;
+  white-space: nowrap;
+  font-size: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
