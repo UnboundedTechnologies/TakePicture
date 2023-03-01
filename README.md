@@ -1,6 +1,6 @@
 # UNBOUNDED'S TAKEPICTURE
 
-TakePicture is an [Angular](https://angular.io/) website made with [Tailwind css](https://tailwindcss.com/), [Flowbite](https://flowbite.com/).
+TakePicture is an [Angular](https://angular.io/) website made with [Tailwind css](https://tailwindcss.com/) and [Flowbite](https://flowbite.com/).
 <br /><br />
 The purpose of this website is to create a personal gym card using [ngx-webcam](https://www.npmjs.com/package/ngx-webcam) which allows to create a profile picture by using a local webcam.
 <br /><br />
