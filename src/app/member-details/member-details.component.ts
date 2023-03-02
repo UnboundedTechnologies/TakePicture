@@ -13,9 +13,14 @@ import { map, Observable, lastValueFrom } from "rxjs";
 export class MemberDetailsComponent {
   @Input() member?: Member;
 
+  private readonly CLOUD_NAME = 'dycyhvjgs';
+  private readonly API_KEY = '661114432265727';
+  private readonly API_SECRET = 'rpZBW9PsBn_BrbLXPB69VmydBMQ';
+  private secureUrl: string = '';
+  public finalUrl: string | undefined;
 
   // Set the cloudinary URL
-  url = "https://res.cloudinary.com/dycyhvjgs/image/upload/";
+  /*url = "https://res.cloudinary.com/dycyhvjgs/image/upload/";
   finalUrl: String | undefined;
   urlTest = "https://res.cloudinary.com/dycyhvjgs/image/upload/v1677714786/small_1677714779804_ffdeeb20d8.jpg"
 
@@ -24,9 +29,12 @@ export class MemberDetailsComponent {
     cloud_name: 'dycyhvjgs',
     api_key: '661114432265727',
     api_secret: 'rpZBW9PsBn_BrbLXPB69VmydBMQ',
-  });
+  });*/
 
   constructor(private http: HttpClient) {
+    this.getLastUploadedImageUrl().then(url => {
+      this.finalUrl = url;
+    });
   }
 
   @ViewChild('card', {static: false}) card: ElementRef | undefined;
@@ -41,7 +49,17 @@ export class MemberDetailsComponent {
     this.flipped = !this.flipped;
   }
 
-  private async getLatestImageVersion(): Promise<string> {
+  async getLastUploadedImageUrl() {
+    const url = `https://api.cloudinary.com/v1_1/${this.CLOUD_NAME}/resources/image/upload?api_key=${this.API_KEY}&api_secret=${this.API_SECRET}&max_results=1&direction=desc&cloud_name=${this.CLOUD_NAME}`;
+    const response = await lastValueFrom(this.http.get(url));
+    if (response) {
+      this.secureUrl = response['resources'][0]['secure_url'];
+      console.log('THIS.SECURE_URL',this.secureUrl);
+    }
+    return this.secureUrl;
+  }
+
+  /*private async getLatestImageVersion(): Promise<string> {
     const apiEndpoint = `https://661114432265727:rpZBW9PsBn_BrbLXPB69VmydBMQ@api.cloudinary.com/v1_1/dycyhvjgs/resources/image`;
     const params = {
       type: 'upload',
@@ -74,5 +92,5 @@ export class MemberDetailsComponent {
 
   async ngOnInit() {
    await  this.constructFinalUrl();
-  }
+  }*/
 }
