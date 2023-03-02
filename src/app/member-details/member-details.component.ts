@@ -1,9 +1,9 @@
-import {Component, Input, ElementRef, ViewChild} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Member} from "../models/member";
-import {Address} from "../models/address";
+import { Component, Input, ElementRef, ViewChild } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Member } from "../models/member";
+import { Address } from "../models/address";
 import { Cloudinary } from 'cloudinary-core';
-import {map, Observable} from "rxjs";
+import { map, Observable, lastValueFrom } from "rxjs";
 
 @Component({
   selector: 'app-member-details',
@@ -17,6 +17,7 @@ export class MemberDetailsComponent {
   // Set the cloudinary URL
   url = "https://res.cloudinary.com/dycyhvjgs/image/upload/";
   finalUrl;
+  urlTest = "https://res.cloudinary.com/dycyhvjgs/image/upload/v1677714786/small_1677714779804_ffdeeb20d8.jpg"
 
 
   private cloudinary = new Cloudinary({
@@ -41,7 +42,7 @@ export class MemberDetailsComponent {
   }
 
   private async getLatestImageVersion(): Promise<string> {
-    const apiEndpoint = `https://api.cloudinary.com/v1_1/dycyhvjgs/resources/image`;
+    const apiEndpoint = `https://661114432265727:rpZBW9PsBn_BrbLXPB69VmydBMQ@api.cloudinary.com/v1_1/dycyhvjgs/resources/image`;
     const params = {
       type: 'upload',
       prefix: '',
@@ -54,9 +55,13 @@ export class MemberDetailsComponent {
       .map(key => `${key}=${encodeURIComponent(params[key])}`)
       .join('&');
 
-    const response = await this.http.get<any>(`${apiEndpoint}?${queryString}`).toPromise();
-    console.log('RESPONSE RESSOURCES: ', response.resources[0].version);
-    return response.resources[0].version;
+    console.log('QUERY STRING: ',queryString);
+
+    const response = await this.http.get<any>(`${apiEndpoint}?${queryString}`);
+    console.log('RESPONSE INTERMEDIAIRE: ', response);
+    const finalResponse = await lastValueFrom(response);
+    console.log('RESPONSE RESSOURCES: ', finalResponse.resources[0].version);
+    return finalResponse.resources[0].version;
   }
 
   // Method to construct the final URL
