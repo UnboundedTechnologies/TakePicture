@@ -3,6 +3,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {WebcamImage, WebcamInitError} from 'ngx-webcam';
 import {Observable, Observer, Subject, Subscription} from "rxjs";
 import {ImageService} from "./services/image.service";
+import {ImageUrlService} from "./services/image-url.service";
 
 @Component({
   selector: 'app-root',
@@ -32,8 +33,10 @@ export class AppComponent implements OnDestroy{
   public showWebcam: Boolean = false;
   public isStartButtonVisible: Boolean = true;
   public showPicture: Boolean= false;
+  public imageUrl: string = '';
 
-  constructor(private imageService: ImageService) {}
+  constructor(private imageService: ImageService, private imageUrlService: ImageUrlService) {
+  }
 
   //webcam screencapture trigger
   private trigger: Subject<void> = new Subject<void>();
@@ -120,6 +123,9 @@ export class AppComponent implements OnDestroy{
         this.pictureProcessed = true;
         this.message = 'Screenshot saved'
         this.showMessage({duration: 2000});
+        this.imageUrl = data[0].formats.small.url;
+        console.log('AppComponent => upload => data => imageUrl', this.imageUrl);
+        this.imageUrlService.imageUrlExport = this.imageUrl;
 
         console.log('AppComponent => upload => data', data);
       },

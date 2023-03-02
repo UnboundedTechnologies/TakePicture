@@ -4,6 +4,7 @@ import { Member } from "../models/member";
 import { Address } from "../models/address";
 import { Cloudinary } from 'cloudinary-core';
 import { map, Observable, lastValueFrom } from "rxjs";
+import {ImageUrlService} from "../services/image-url.service";
 
 @Component({
   selector: 'app-member-details',
@@ -13,28 +14,11 @@ import { map, Observable, lastValueFrom } from "rxjs";
 export class MemberDetailsComponent {
   @Input() member?: Member;
 
-  private readonly CLOUD_NAME = 'dycyhvjgs';
-  private readonly API_KEY = '661114432265727';
-  private readonly API_SECRET = 'rpZBW9PsBn_BrbLXPB69VmydBMQ';
-  private secureUrl: string = '';
   public finalUrl: string | undefined;
 
-  // Set the cloudinary URL
-  /*url = "https://res.cloudinary.com/dycyhvjgs/image/upload/";
-  finalUrl: String | undefined;
-  urlTest = "https://res.cloudinary.com/dycyhvjgs/image/upload/v1677714786/small_1677714779804_ffdeeb20d8.jpg"
-
-
-  private cloudinary = new Cloudinary({
-    cloud_name: 'dycyhvjgs',
-    api_key: '661114432265727',
-    api_secret: 'rpZBW9PsBn_BrbLXPB69VmydBMQ',
-  });*/
-
-  constructor(private http: HttpClient) {
-    this.getLastUploadedImageUrl().then(url => {
-      this.finalUrl = url;
-    });
+  constructor(private http: HttpClient, private imageUrlService: ImageUrlService) {
+    this.finalUrl = this.imageUrlService.imageUrlExport;
+    console.log('FINAL URL', this.finalUrl);
   }
 
   @ViewChild('card', {static: false}) card: ElementRef | undefined;
@@ -48,49 +32,4 @@ export class MemberDetailsComponent {
     }
     this.flipped = !this.flipped;
   }
-
-  async getLastUploadedImageUrl() {
-    const url = `https://api.cloudinary.com/v1_1/${this.CLOUD_NAME}/resources/image/upload?api_key=${this.API_KEY}&api_secret=${this.API_SECRET}&max_results=1&direction=desc&cloud_name=${this.CLOUD_NAME}`;
-    const response = await lastValueFrom(this.http.get(url));
-    if (response) {
-      this.secureUrl = response['resources'][0]['secure_url'];
-      console.log('THIS.SECURE_URL',this.secureUrl);
-    }
-    return this.secureUrl;
-  }
-
-  /*private async getLatestImageVersion(): Promise<string> {
-    const apiEndpoint = `https://661114432265727:rpZBW9PsBn_BrbLXPB69VmydBMQ@api.cloudinary.com/v1_1/dycyhvjgs/resources/image`;
-    const params = {
-      type: 'upload',
-      prefix: '',
-      max_results: 1,
-      sort_by: 'created_at',
-      direction: 'desc',
-      format: 'json',
-    };
-    const queryString = Object.keys(params)
-      .map(key => `${key}=${encodeURIComponent(params[key])}`)
-      .join('&');
-
-    console.log('QUERY STRING: ',queryString);
-
-    const response = await this.http.get<any>(`${apiEndpoint}?${queryString}`);
-    console.log('RESPONSE INTERMEDIAIRE: ', response);
-    const finalResponse = await lastValueFrom(response);
-    console.log('RESPONSE RESSOURCES: ', finalResponse.resources[0].secure_url);
-    return finalResponse.resources[0].secure_url;
-  }
-
-  // Method to construct the final URL
-  async constructFinalUrl() {
-    //const version = await this.getLatestImageVersion();
-    //this.finalUrl = `${this.url}v${version}/`;
-    this.finalUrl = await this.getLatestImageVersion();
-    console.log('FINAL URL: ', this.finalUrl);
-  }
-
-  async ngOnInit() {
-   await  this.constructFinalUrl();
-  }*/
 }
