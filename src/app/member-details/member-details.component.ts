@@ -16,7 +16,7 @@ export class MemberDetailsComponent {
 
   // Set the cloudinary URL
   url = "https://res.cloudinary.com/dycyhvjgs/image/upload/";
-  finalUrl;
+  finalUrl: String | undefined;
   urlTest = "https://res.cloudinary.com/dycyhvjgs/image/upload/v1677714786/small_1677714779804_ffdeeb20d8.jpg"
 
 
@@ -60,14 +60,16 @@ export class MemberDetailsComponent {
     const response = await this.http.get<any>(`${apiEndpoint}?${queryString}`);
     console.log('RESPONSE INTERMEDIAIRE: ', response);
     const finalResponse = await lastValueFrom(response);
-    console.log('RESPONSE RESSOURCES: ', finalResponse.resources[0].version);
-    return finalResponse.resources[0].version;
+    console.log('RESPONSE RESSOURCES: ', finalResponse.resources[0].secure_url);
+    return finalResponse.resources[0].secure_url;
   }
 
   // Method to construct the final URL
   async constructFinalUrl() {
-    const version = await this.getLatestImageVersion();
-    this.finalUrl = `${this.url}v${version}/`;
+    //const version = await this.getLatestImageVersion();
+    //this.finalUrl = `${this.url}v${version}/`;
+    this.finalUrl = await this.getLatestImageVersion();
+    console.log('FINAL URL: ', this.finalUrl);
   }
 
   async ngOnInit() {
