@@ -15,7 +15,7 @@
             <button type="button" (click)="showPreview()" class="items-center text-black bg-white hover:bg-gray-200 dark:text-white dark:bg-gray-900 dark:hover:bg-gray-700 dark:border-gray-700 focus:outline-none font-medium rounded-lg text-sm items-center px-5 py-2.5 mt-10">Start</button>
           </div>
 
-          <div class="snapshot flex flex-col items-center overflow-y-auto overflow-x-hidden" *ngIf="showWebcam">
+          <div class="snapshot flex flex-col items-center overflow-y-auto overflow-x-hidden max-h-[calc(100vh-192px)]" *ngIf="showWebcam">
             <div class="flex flex-col items-center">
               <h2 class="text-2xl font-bold mb-4 text-white dark:text-black text-center mb-5">
                 Sit comfortably, centre your face and take your picture.

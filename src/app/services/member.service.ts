@@ -14,10 +14,6 @@ export class MemberService {
 
   createMember(member: Member) {
     const payload = { data: member };
-    return this.http.post<Member>(this.url, payload).pipe(
-      tap((createdMember: Member) => {
-        console.log(`Member created: ${createdMember}`);
-      })
-    );
+    return this.http.post<Member>(this.url, payload);
   }
 }

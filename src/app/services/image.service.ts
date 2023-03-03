@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {tap} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +12,6 @@ export class ImageService {
   constructor(private http: HttpClient) { }
 
   uploadImage(formData: FormData): Observable<any>{
-    return this.http.post(this.url, formData).pipe(tap(() => console.log(formData)));
+    return this.http.post(this.url, formData);
   }
 }

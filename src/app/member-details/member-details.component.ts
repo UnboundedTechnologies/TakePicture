@@ -15,7 +15,6 @@ export class MemberDetailsComponent {
 
   constructor(private http: HttpClient, private imageUrlService: ImageUrlService) {
     this.finalUrl = this.imageUrlService.imageUrlExport;
-    console.log('FINAL URL', this.finalUrl);
   }
 
   @ViewChild('card', {static: false}) card: ElementRef | undefined;

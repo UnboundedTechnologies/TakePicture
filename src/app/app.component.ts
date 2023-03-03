@@ -90,7 +90,6 @@ export class AppComponent implements OnDestroy{
       error: (err) => {console.error(err)},
       complete: () => {console.log('completed')}
     });
-      console.log('Webcam Image Received', webcamImage);
   }
 
   public get triggerObservable(): Observable<void>{
