@@ -34,6 +34,8 @@ export class AppComponent implements OnDestroy{
   public isStartButtonVisible: Boolean = true;
   public showPicture: Boolean= false;
   public imageUrl: string = '';
+  public spinner = document.getElementById('spinner');
+  public confirmButton = document.getElementById("confirm-button");
 
   constructor(private imageService: ImageService, private imageUrlService: ImageUrlService) {
   }
@@ -133,7 +135,11 @@ export class AppComponent implements OnDestroy{
         this.pleaseWait = false;
         this.pictureProcessed = true;
         this.messageError = 'Screenshot not saved. An error occured.'
-        this.showMessage({duration: 2000});
+        this.showMessage({duration: 2000,});
+
+        setTimeout(() => {
+          location.reload();
+        }, 5000);
 
         console.error('AppComponent => upload => err', err);
       },
