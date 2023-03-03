@@ -5,8 +5,7 @@ import {MemberService} from "../services/member.service";
 import {Member} from "../models/member";
 import {Subscription} from "rxjs";
 import {CookieService} from 'ngx-cookie-service';
-import flatpickr from 'flatpickr';
-import { FlatpickrOptions } from 'ng2-flatpickr';
+import {FlatpickrOptions} from 'ng2-flatpickr';
 
 @Component({
   selector: 'app-member-form',
@@ -36,7 +35,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
       const dobErrorDiv = document.querySelector('.invalid-dob');
       dobErrorDiv?.classList.remove('hidden');
     } else {
-      // Faites ici le traitement à effectuer lorsque le formulaire est valide.
+      // add smth here when form is valid
     }
   }
 
@@ -60,7 +59,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   }
 
   create() {
-    if (this.createMember.valid) { // vérifier la validité du formulaire avant de créer le membre
+    if (this.createMember.valid) {
       let member: Member = this.createMember.value;
       const dob = new Date(member.dob);
       dob.setDate(dob.getDate() + 1);
@@ -70,33 +69,22 @@ export class MemberFormComponent implements OnInit, OnDestroy {
 
       member = {...this.createMember.value, dob, dateOfSubscription};
 
-      console.log('APRES member', member);
-      console.log('APRES ADDRESSE', member.address);
-
       this.sub = this.memberService.createMember(member).subscribe({
         next: (data: Member) => {
-          console.log('MemberForm => POST => data', data);
           this.showMemberDetails = true;
 
           this.savedMember = data;
-          console.log('MemberForm => POST => SAVEDMEMBER', this.savedMember);
 
-          // Enregistrer les informations du membre dans un cookie sécurisé
           this.cookieService.set('savedMember', JSON.stringify(this.savedMember), { secure: true });
 
-          // Console.Log() le contenu du cookie
           let cookieValue = this.cookieService.get('savedMember');
           let response = JSON.parse(cookieValue);
 
           let id = response.data.id;
-          let imageName = response.data.imageName;
           let name = response.data.attributes.name;
           let firstName = response.data.attributes.firstName;
           let dob = response.data.attributes.dob;
           let dateOfSubscription = response.data.attributes.dateOfSubscription;
-
-          let formattedDob = new Date(dob).toISOString().substring(0, 10);
-          let formattedDateOfSubscription = new Date(dateOfSubscription).toISOString().substring(0, 10);
 
           this.newMember = {
             id: id,
@@ -107,14 +95,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
             dateOfSubscription: new Date(dateOfSubscription),
             address: member.address
           };
-
-          console.log('Contenu du cookie:', response);
-          console.log('VALEUR id:', id);
-          console.log('VALEUR imageName:', imageName);
-          console.log('VALEUR name:', name);
-          console.log('VALEUR firstName:', firstName);
-          console.log('VALEUR dob:', dob);
-          console.log('VALEUR dateOfSubscription:', dateOfSubscription);
         },
         error: (err) => {
           console.error('MemberForm => POST => err', err);

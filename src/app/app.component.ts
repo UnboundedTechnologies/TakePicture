@@ -40,7 +40,6 @@ export class AppComponent implements OnDestroy{
   constructor(private imageService: ImageService, private imageUrlService: ImageUrlService) {
   }
 
-  //webcam screencapture trigger
   private trigger: Subject<void> = new Subject<void>();
 
   showPreview() {
@@ -126,10 +125,8 @@ export class AppComponent implements OnDestroy{
         this.message = 'Screenshot saved'
         this.showMessage({duration: 2000});
         this.imageUrl = data[0].formats.small.url;
-        console.log('AppComponent => upload => data => imageUrl', this.imageUrl);
         this.imageUrlService.imageUrlExport = this.imageUrl;
 
-        console.log('AppComponent => upload => data', data);
       },
       error: (err) => {
         this.pleaseWait = false;

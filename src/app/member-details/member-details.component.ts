@@ -1,9 +1,6 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Member } from "../models/member";
-import { Address } from "../models/address";
-import { Cloudinary } from 'cloudinary-core';
-import { map, Observable, lastValueFrom } from "rxjs";
 import {ImageUrlService} from "../services/image-url.service";
 
 @Component({
